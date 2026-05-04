@@ -7,250 +7,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --blue-dark: #0d1257;
-      --white: #f0f0f0;
-      --vhs-line: rgba(255,255,255,0.03);
-    }
-
-    html, body {
-      width: 100%; height: 100%;
-      overflow: hidden;
-    }
-
-    body {
-      background-color: var(--blue-dark);
-      color: var(--white);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    /* CRT scanlines */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        var(--vhs-line) 2px,
-        var(--vhs-line) 4px
-      );
-      pointer-events: none;
-      z-index: 50;
-    }
-
-    /* Vignette */
-    body::after {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(57,73,171,0.15) 0%, rgba(13,18,87,0.6) 100%);
-      pointer-events: none;
-      z-index: 49;
-    }
-
-    .tracking-bar {
-      position: fixed;
-      left: 0; right: 0;
-      height: 6px;
-      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, rgba(180,200,255,0.15) 60%, transparent 100%);
-      z-index: 51;
-      animation: trackingWander 9s linear infinite;
-      pointer-events: none;
-    }
-
-    .grain {
-      position: fixed;
-      inset: -50%;
-      width: 200%; height: 200%;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.055;
-      pointer-events: none;
-      z-index: 48;
-      animation: grainShift 0.15s steps(1) infinite;
-    }
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2.5rem;
-      z-index: 60;
-      text-align: center;
-      padding: 2rem;
-      position: relative;
-      animation: rgbDrift 6s ease-in-out infinite;
-    }
-
-    .logo-wrap {
-      width: clamp(300px, 55vw, 620px);
-      animation: floatIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-      filter: drop-shadow(0 0 24px rgba(100,130,255,0.4));
-    }
-
-    .logo-wrap img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .divider {
-      height: 1px;
-      background: rgba(255,255,255,0.25);
-      width: clamp(120px, 20vw, 200px);
-      animation: expandLine 1s ease 0.8s both;
-    }
-
-    .tagline {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(0.75rem, 2vw, 1rem);
-      letter-spacing: 0.5em;
-      color: var(--white);
-      opacity: 0.45;
-      animation: fadeIn 1.2s ease 1s both;
-    }
-
-    .coming-soon {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3.5rem, 11vw, 7.5rem);
-      letter-spacing: 0.06em;
-      line-height: 0.95;
-      color: var(--white);
-      animation: fadeIn 1.2s ease 0.5s both;
-      text-shadow:
-        0 0 20px rgba(150,170,255,0.4),
-        0 0 60px rgba(100,130,255,0.15);
-      position: relative;
-    }
-
-    .coming-soon::before {
-      content: attr(data-text);
-      position: absolute;
-      inset: 0;
-      color: rgba(255, 80, 80, 0.35);
-      transform: translateX(-2px);
-      animation: textGlitch 5s steps(1) infinite;
-      pointer-events: none;
-    }
-    .coming-soon::after {
-      content: attr(data-text);
-      position: absolute;
-      inset: 0;
-      color: rgba(80, 200, 255, 0.3);
-      transform: translateX(2px);
-      animation: textGlitch 5s steps(1) infinite reverse;
-      pointer-events: none;
-    }
-
-    .corner {
-      position: fixed;
-      width: 32px; height: 32px;
-      border-color: rgba(255,255,255,0.2);
-      border-style: solid;
-    }
+    :root { --blue-dark: #0d1257; --white: #f0f0f0; --vhs-line: rgba(255,255,255,0.03); }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+    body { background-color: var(--blue-dark); color: var(--white); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; }
+    body::before { content: ''; position: fixed; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, var(--vhs-line) 2px, var(--vhs-line) 4px); pointer-events: none; z-index: 50; }
+    body::after { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse at center, rgba(57,73,171,0.15) 0%, rgba(13,18,87,0.6) 100%); pointer-events: none; z-index: 49; }
+    .tracking-bar { position: fixed; left: 0; right: 0; height: 6px; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.08) 40%, rgba(180,200,255,0.15) 60%, transparent 100%); z-index: 51; animation: trackingWander 9s linear infinite; pointer-events: none; }
+    .grain { position: fixed; inset: -50%; width: 200%; height: 200%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.055; pointer-events: none; z-index: 48; animation: grainShift 0.15s steps(1) infinite; }
+    .container { display: flex; flex-direction: column; align-items: center; gap: 2.5rem; z-index: 60; text-align: center; padding: 2rem; position: relative; animation: rgbDrift 6s ease-in-out infinite; }
+    .logo-wrap { width: clamp(300px, 55vw, 620px); animation: floatIn 1.8s cubic-bezier(0.16, 1, 0.3, 1) both; filter: drop-shadow(0 0 24px rgba(100,130,255,0.4)); }
+    .logo-wrap img { width: 100%; height: auto; display: block; }
+    .divider { height: 1px; background: rgba(255,255,255,0.25); width: clamp(120px, 20vw, 200px); animation: expandLine 1s ease 0.8s both; }
+    .tagline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(0.75rem, 2vw, 1rem); letter-spacing: 0.5em; color: var(--white); opacity: 0.45; animation: fadeIn 1.2s ease 1s both; }
+    .coming-soon { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 11vw, 7.5rem); letter-spacing: 0.06em; line-height: 0.95; color: var(--white); animation: fadeIn 1.2s ease 0.5s both; text-shadow: 0 0 20px rgba(150,170,255,0.4), 0 0 60px rgba(100,130,255,0.15); position: relative; }
+    .coming-soon::before { content: attr(data-text); position: absolute; inset: 0; color: rgba(255,80,80,0.35); transform: translateX(-2px); animation: textGlitch 5s steps(1) infinite; pointer-events: none; }
+    .coming-soon::after { content: attr(data-text); position: absolute; inset: 0; color: rgba(80,200,255,0.3); transform: translateX(2px); animation: textGlitch 5s steps(1) infinite reverse; pointer-events: none; }
+    .corner { position: fixed; width: 32px; height: 32px; border-color: rgba(255,255,255,0.2); border-style: solid; }
     .corner.tl { top: 20px; left: 20px; border-width: 1px 0 0 1px; }
     .corner.tr { top: 20px; right: 20px; border-width: 1px 1px 0 0; }
     .corner.bl { bottom: 20px; left: 20px; border-width: 0 0 1px 1px; }
     .corner.br { bottom: 20px; right: 20px; border-width: 0 1px 1px 0; }
-
-    .timestamp {
-      position: fixed;
-      bottom: 28px; right: 28px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: rgba(255,255,255,0.25);
-      z-index: 60;
-      animation: blink 1.4s step-start infinite;
-    }
-
-    .rec {
-      position: fixed;
-      top: 28px; left: 28px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      color: rgba(255,255,255,0.25);
-      z-index: 60;
-    }
-    .rec-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: rgba(200, 60, 60, 0.7);
-      animation: blink 1s step-start infinite;
-    }
-
-    @keyframes trackingWander {
-      0%   { top: 110%; }
-      100% { top: -10%; }
-    }
-    @keyframes grainShift {
-      0%   { transform: translate(0,0); }
-      25%  { transform: translate(-1%,1%); }
-      50%  { transform: translate(1%,-1%); }
-      75%  { transform: translate(-1%,-1%); }
-      100% { transform: translate(1%,1%); }
-    }
-    @keyframes rgbDrift {
-      0%, 100% { filter: none; }
-      50%       { filter: drop-shadow(1px 0 0 rgba(255,50,50,0.15)) drop-shadow(-1px 0 0 rgba(50,200,255,0.15)); }
-      52%       { filter: none; }
-      81%       { filter: drop-shadow(2px 0 0 rgba(255,50,50,0.2)) drop-shadow(-2px 0 0 rgba(50,200,255,0.2)); }
-      82%       { filter: none; }
-    }
-    @keyframes textGlitch {
-      0%, 94%, 96%, 100% { opacity: 1; transform: translateX(-2px); }
-      95% { opacity: 0.5; transform: translateX(4px) skewX(5deg); }
-    }
-    @keyframes expandLine {
-      from { width: 0; opacity: 0; }
-      to { opacity: 1; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes floatIn {
-      from { opacity: 0; transform: translateY(-16px) scale(0.97); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
+    .timestamp { position: fixed; bottom: 28px; right: 28px; font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 0.15em; color: rgba(255,255,255,0.25); z-index: 60; animation: blink 1.4s step-start infinite; }
+    .rec { position: fixed; top: 28px; left: 28px; display: flex; align-items: center; gap: 6px; font-family: 'Bebas Neue', sans-serif; font-size: 0.7rem; letter-spacing: 0.2em; color: rgba(255,255,255,0.25); z-index: 60; }
+    .rec-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(200,60,60,0.7); animation: blink 1s step-start infinite; }
+    @keyframes trackingWander { 0% { top: 110%; } 100% { top: -10%; } }
+    @keyframes grainShift { 0% { transform: translate(0,0); } 25% { transform: translate(-1%,1%); } 50% { transform: translate(1%,-1%); } 75% { transform: translate(-1%,-1%); } 100% { transform: translate(1%,1%); } }
+    @keyframes rgbDrift { 0%, 100% { filter: none; } 50% { filter: drop-shadow(1px 0 0 rgba(255,50,50,0.15)) drop-shadow(-1px 0 0 rgba(50,200,255,0.15)); } 52% { filter: none; } 81% { filter: drop-shadow(2px 0 0 rgba(255,50,50,0.2)) drop-shadow(-2px 0 0 rgba(50,200,255,0.2)); } 82% { filter: none; } }
+    @keyframes textGlitch { 0%, 94%, 96%, 100% { opacity: 1; transform: translateX(-2px); } 95% { opacity: 0.5; transform: translateX(4px) skewX(5deg); } }
+    @keyframes expandLine { from { width: 0; opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatIn { from { opacity: 0; transform: translateY(-16px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   </style>
 </head>
 <body>
-
   <div class="grain"></div>
   <div class="tracking-bar"></div>
-
   <div class="corner tl"></div>
   <div class="corner tr"></div>
   <div class="corner bl"></div>
   <div class="corner br"></div>
-
   <div class="rec"><div class="rec-dot"></div> REC</div>
   <div class="timestamp">SP &nbsp;--:--:-- &nbsp;CH01</div>
-
   <div class="container">
     <div class="logo-wrap">
-      <img src="GV_Castle_1_Final.png" alt="Gradisca Violenta" />
+      <img src="GV%20STORE%20LOGO%20WHITE.png" alt="Gradisca Violenta" />
     </div>
     <div class="divider"></div>
     <p class="tagline">Est. 1984</p>
     <h1 class="coming-soon" data-text="COMING SOON">COMING<br>SOON</h1>
   </div>
-
 </body>
 </html>
