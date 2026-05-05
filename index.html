@@ -27,6 +27,7 @@
     .tear2 { animation: tearWander2 14s linear infinite; }
 
     .container { display: flex; flex-direction: column; align-items: center; gap: 0.6rem; z-index: 60; text-align: center; padding: 2rem; position: relative; animation: rgbDrift 5s ease-in-out infinite; }
+    .text-block { display: flex; flex-direction: column; align-items: center; gap: 1.4rem; transform: translateX(3%); }
 
     /* Logo with VHS degradation */
     .logo-wrap {
@@ -141,8 +142,10 @@
     <div class="logo-wrap">
       <img src="GV%20STORE%20LOGO%20WHITE.png" alt="Gradisca Violenta" />
     </div>
-    <p class="tagline">Est. 1984</p>
-    <h1 class="coming-soon" data-text="COMING SOON">COMING<br>SOON</h1>
+    <div class="text-block">
+      <p class="tagline">Est. 1984</p>
+      <h1 class="coming-soon" data-text="COMING SOON">COMING<br>SOON</h1>
+    </div>
   </div>
 </body>
 </html>
